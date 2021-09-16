@@ -1,4 +1,3 @@
-import os
 import sys
 import argparse
 
@@ -33,6 +32,8 @@ def brainfuck(text_script, memory_size=30000):
 
     # save BrainFuck script length
     n = len(bfscript)
+    if n == 0:
+        exit()
 
     # verify for syntactical loop errors (check that all loops begins
     # with a '[' and ends with a ']'). also create a loop map dictionary
@@ -111,18 +112,20 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='A Python BrainFuck interpreter implementation.')
     # Arguments
     parser.add_argument('-file', type=str,
-                        help='The path to the .txt file you want to interpret with BrainFuck interpreter.')
+                        help='The path to the file you want to interpret with BrainFuck interpreter.')
     parser.add_argument('-memory_size', type=int, default=30000,
                         help='The size of memory being used (list length).')
 
     args = parser.parse_args()
-    with open(args.file + '.txt', 'r') as file:
+    with open(args.file, 'r') as file:
         text = file.read()
         try:
             print('Reading with BrainFuck...')
             brainfuck(text, memory_size=args.memory_size)
-        except Exception as e:
-            print('Some problem occurred.')
+        except IOError as e:
+            print('Error in reading file: {}'.format(args.file))
+            exit()
+
 
 
 
