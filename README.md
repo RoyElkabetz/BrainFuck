@@ -13,7 +13,7 @@ You should run the `brain_fuck.py` file with the following arguments:
 
 ## Example
 
-```text
+```python console
 python brain_fuck.py -file Hello_Fucking_World
 ```
 
